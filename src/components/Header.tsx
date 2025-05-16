@@ -13,7 +13,7 @@ const Header = () => {
   useMotionValueEvent(scrollY, "change", (latest) => {
     // Only apply scroll hide/show behavior on non-mobile devices
     if (!isMobile) {
-      // Скрываем шапку при прокрутке вниз и показываем при прокрутке вверх
+      // Show header when scrolling up and hide when scrolling down
       if (latest > lastScrollY && latest > 150) {
         setHidden(true);
       } else {
@@ -23,7 +23,7 @@ const Header = () => {
     setLastScrollY(latest);
   });
 
-  // Функция для плавного скролла к секциям
+  // Function for smooth scrolling to sections
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -33,7 +33,7 @@ const Header = () => {
 
   return (
     <motion.header 
-      className="fixed top-0 left-0 right-0 py-4 bg-white shadow-sm z-10"
+      className={`${isMobile ? 'fixed' : 'absolute'} top-0 left-0 right-0 py-4 bg-white shadow-sm z-10`}
       initial={{ y: 0 }}
       animate={{ y: isMobile ? 0 : (hidden ? -100 : 0) }}
       transition={{ duration: 0.3 }}
