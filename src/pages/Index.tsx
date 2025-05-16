@@ -6,12 +6,18 @@ import Header from "@/components/Header";
 
 const Index = () => {
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen">
       <Header />
-      <Hero />
-      <Services />
-      <Contact />
-    </main>
+      <main className="pt-20"> {/* Добавляем padding-top для компенсации фиксированной шапки */}
+        <Hero />
+        <section id="services">
+          <Services />
+        </section>
+        <section id="contact">
+          <Contact />
+        </section>
+      </main>
+    </div>
   );
 };
 

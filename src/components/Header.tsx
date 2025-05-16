@@ -1,10 +1,38 @@
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Header = () => {
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // Скрываем шапку при прокрутке вниз и показываем при прокрутке вверх
+    if (latest > lastScrollY && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+    setLastScrollY(latest);
+  });
+
+  // Функция для плавного скролла к секциям
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <header className="py-4 bg-white shadow-sm">
+    <motion.header 
+      className="fixed top-0 left-0 right-0 py-4 bg-white shadow-sm z-10"
+      initial={{ y: 0 }}
+      animate={{ y: hidden ? -100 : 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <motion.div 
           initial={{ opacity: 0 }}
@@ -21,21 +49,27 @@ const Header = () => {
         </motion.div>
         
         <nav className="hidden md:flex items-center gap-6">
-          <a href="#services" className="text-gray-600 hover:text-[#9b87f5] transition-colors">
+          <button 
+            onClick={() => scrollToSection('services')} 
+            className="text-gray-600 hover:text-[#9b87f5] transition-colors"
+          >
             Services
-          </a>
-          <a href="#contact" className="text-gray-600 hover:text-[#9b87f5] transition-colors">
+          </button>
+          <button 
+            onClick={() => scrollToSection('contact')} 
+            className="text-gray-600 hover:text-[#9b87f5] transition-colors"
+          >
             Contact Us
-          </a>
-          <a 
-            href="#contact" 
+          </button>
+          <button 
+            onClick={() => scrollToSection('contact')} 
             className="bg-[#9b87f5] text-white px-4 py-2 rounded-full hover:bg-[#7E69AB] transition-colors"
           >
             Get Started
-          </a>
+          </button>
         </nav>
       </div>
-    </header>
+    </motion.header>
   );
 };
 
