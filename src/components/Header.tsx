@@ -2,18 +2,23 @@
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Header = () => {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const isMobile = useIsMobile();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    // Скрываем шапку при прокрутке вниз и показываем при прокрутке вверх
-    if (latest > lastScrollY && latest > 150) {
-      setHidden(true);
-    } else {
-      setHidden(false);
+    // Only apply scroll hide/show behavior on non-mobile devices
+    if (!isMobile) {
+      // Скрываем шапку при прокрутке вниз и показываем при прокрутке вверх
+      if (latest > lastScrollY && latest > 150) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
     }
     setLastScrollY(latest);
   });
@@ -30,7 +35,7 @@ const Header = () => {
     <motion.header 
       className="fixed top-0 left-0 right-0 py-4 bg-white shadow-sm z-10"
       initial={{ y: 0 }}
-      animate={{ y: hidden ? -100 : 0 }}
+      animate={{ y: isMobile ? 0 : (hidden ? -100 : 0) }}
       transition={{ duration: 0.3 }}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
