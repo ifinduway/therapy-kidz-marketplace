@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
+import { MessageSquare } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -26,6 +27,27 @@ const Contact = () => {
             transition={{ duration: 0.5 }}
             className="bg-white rounded-2xl p-8 shadow-lg"
           >
+            <div className="mb-8 text-center">
+              <Button 
+                className="w-full md:w-auto bg-[#0088cc] hover:bg-[#0077b5] text-white transition-all duration-300 rounded-full flex items-center justify-center gap-2 py-6 px-8 text-lg"
+                onClick={() => window.open("https://t.me/yourusername", "_blank")}
+              >
+                <MessageSquare className="w-5 h-5" />
+                Написать в Telegram
+              </Button>
+            </div>
+            
+            <div className="relative my-10 text-center">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200"></div>
+              </div>
+              <div className="relative flex justify-center">
+                <span className="bg-white px-4 text-sm font-medium text-gray-500">
+                  ИЛИ
+                </span>
+              </div>
+            </div>
+            
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
