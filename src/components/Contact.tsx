@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,13 +11,14 @@ const Contact = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <span className="px-4 py-2 rounded-full bg-white text-sm font-medium inline-block mb-4">
-              Get in Touch
+              Связаться с нами
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Start Your Child's Journey Today
+              Начните путь развития вашего ребёнка сегодня
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              We're here to answer your questions and help you make the best decision for your child's development.
+              Мы готовы ответить на ваши вопросы и помочь принять лучшее решение
+              для развития вашего ребёнка.
             </p>
           </div>
           <motion.div
@@ -27,16 +27,18 @@ const Contact = () => {
             transition={{ duration: 0.5 }}
             className="bg-white rounded-2xl p-8 shadow-lg"
           >
-            <div className="mb-8 text-center">
-              <Button 
-                className="w-full md:w-auto bg-[#0088cc] hover:bg-[#0077b5] text-white transition-all duration-300 rounded-full flex items-center justify-center gap-2 py-6 px-8 text-lg"
-                onClick={() => window.open("https://t.me/yourusername", "_blank")}
+            <div className="mb-12 flex justify-center items-center">
+              <Button
+                className="w-full md:w-auto bg-[#0088cc] hover:bg-[#0077b5] text-white transition-all duration-300 rounded-full flex items-center justify-center gap-3 py-8 px-12 text-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+                onClick={() =>
+                  window.open("https://t.me/yourusername", "_blank")
+                }
               >
-                <MessageSquare className="w-5 h-5" />
+                <MessageSquare className="w-6 h-6" />
                 Написать в Telegram
               </Button>
             </div>
-            
+
             <div className="relative my-10 text-center">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-200"></div>
@@ -47,36 +49,36 @@ const Contact = () => {
                 </span>
               </div>
             </div>
-            
+
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Your Name
+                    Ваше имя
                   </label>
                   <Input
                     type="text"
-                    placeholder="John Doe"
+                    placeholder="Иван Иванов"
                     className="w-full rounded-lg"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address
+                    Email адрес
                   </label>
                   <Input
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder="ivan@example.com"
                     className="w-full rounded-lg"
                   />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Message
+                  Сообщение
                 </label>
                 <Textarea
-                  placeholder="Tell us about your child's needs..."
+                  placeholder="Расскажите о потребностях вашего ребёнка..."
                   className="w-full rounded-lg min-h-[150px]"
                 />
               </div>
@@ -84,7 +86,7 @@ const Contact = () => {
                 type="submit"
                 className="w-full bg-black hover:bg-gray-800 text-white transition-all duration-300 rounded-full"
               >
-                Send Message
+                Отправить сообщение
               </Button>
             </form>
           </motion.div>

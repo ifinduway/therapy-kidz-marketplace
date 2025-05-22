@@ -99,3 +99,27 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Swiper styles */
+.teachers-swiper {
+  padding: 20px 0 50px;
+}
+
+.teachers-swiper .swiper-pagination-bullet {
+  background: #9b87f5;
+  opacity: 0.5;
+}
+
+.teachers-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+.teachers-swiper .swiper-button-next,
+.teachers-swiper .swiper-button-prev {
+  color: #9b87f5;
+}
+
+.teachers-swiper .swiper-button-next:after,
+.teachers-swiper .swiper-button-prev:after {
+  font-size: 24px;
+}
