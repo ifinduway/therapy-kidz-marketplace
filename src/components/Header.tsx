@@ -2,12 +2,19 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "@/contexts/ThemeContext";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const isMobile = useIsMobile();
+  const { theme, toggleTheme } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (!isMobile) {
@@ -23,68 +30,148 @@ const Header = () => {
     setLastScrollY(latest);
   });
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   // Function for smooth scrolling to sections
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+      setIsOpen(false); // Закрываем мобильное меню после клика
     }
   };
 
+  const menuItems = [
+    { label: "Главная", href: "#", id: "hero" },
+    { label: "Услуги", href: "#services", id: "services" },
+    { label: "Специалисты", href: "#teachers", id: "teachers" },
+    { label: "Контакты", href: "#contact", id: "contact" },
+  ];
+
   return (
-    <motion.header
+    <header
       className={`${
         isMobile ? "relative" : "fixed"
-      } top-0 left-0 right-0 py-4 bg-white/80 backdrop-blur-md shadow-sm z-50`}
-      initial={{ y: 0 }}
-      animate={{
-        y: isMobile ? 0 : hidden ? -100 : 0,
-        backgroundColor: isMobile
-          ? "rgb(255, 255, 255)"
-          : "rgba(255, 255, 255, 0.8)",
-      }}
-      transition={{
-        duration: 0.3,
-        ease: "easeInOut",
-      }}
+      } top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled && !isMobile
+          ? "bg-white/80 dark:bg-dark-primary/80 backdrop-blur-md shadow-lg"
+          : "bg-transparent"
+      }`}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center"
-        >
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-[#9b87f5] rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">ST</span>
-            </div>
-            <span className="font-bold text-xl text-gray-800">Логопедия</span>
-          </Link>
-        </motion.div>
+      <div className="container px-4 mx-auto">
+        <div className="flex items-center justify-between h-20">
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("hero");
+            }}
+            className="text-2xl font-bold text-black dark:text-dark-primary"
+          >
+            TherapyKidz
+          </a>
 
-        <nav className="hidden md:flex items-center gap-6">
-          <button
-            onClick={() => scrollToSection("services")}
-            className="text-gray-600 hover:text-[#9b87f5] transition-colors"
-          >
-            Услуги
-          </button>
-          <button
-            onClick={() => scrollToSection("contact")}
-            className="text-gray-600 hover:text-[#9b87f5] transition-colors"
-          >
-            Контакты
-          </button>
-          <button
-            onClick={() => scrollToSection("contact")}
-            className="bg-[#9b87f5] text-white px-4 py-2 rounded-full hover:bg-[#7E69AB] transition-colors"
-          >
-            Начать
-          </button>
-        </nav>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {menuItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(item.id);
+                }}
+                className="text-gray-600 hover:text-black dark:text-dark-secondary dark:hover:text-dark-primary transition-colors"
+              >
+                {item.label}
+              </a>
+            ))}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              className="text-gray-600 hover:text-black dark:text-dark-secondary dark:hover:text-dark-primary"
+            >
+              {theme === "light" ? (
+                <Moon className="w-5 h-5" />
+              ) : (
+                <Sun className="w-5 h-5" />
+              )}
+            </Button>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <div className="flex items-center space-x-4 md:hidden">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              className="text-gray-600 hover:text-black dark:text-dark-secondary dark:hover:text-dark-primary"
+            >
+              {theme === "light" ? (
+                <Moon className="w-5 h-5" />
+              ) : (
+                <Sun className="w-5 h-5" />
+              )}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-600 hover:text-black dark:text-dark-secondary dark:hover:text-dark-primary"
+            >
+              {isOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </Button>
+          </div>
+        </div>
       </div>
-    </motion.header>
+
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-white dark:bg-dark-primary border-t border-gray-100 dark:border-dark-primary"
+          >
+            <nav className="container px-4 py-4">
+              <div className="flex flex-col space-y-4">
+                {menuItems.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(item.id);
+                    }}
+                    className="text-gray-600 hover:text-black dark:text-dark-secondary dark:hover:text-dark-primary transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 };
 

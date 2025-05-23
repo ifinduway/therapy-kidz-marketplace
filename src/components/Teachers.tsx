@@ -18,13 +18,16 @@ const Teachers = () => {
   const teachers = t("teachers.items") as unknown as Teacher[];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section
+      id="teachers"
+      className="scroll-mt-24 py-20 bg-gray-50 dark:bg-dark-secondary"
+    >
       <div className="container px-4 mx-auto">
         <div className="text-center max-w-4xl mx-auto mb-12">
           <span className="px-4 py-2 rounded-full bg-theme-softGreen text-sm font-medium inline-block mb-4">
             {t("teachers.badge") as string}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-dark-primary">
             {t("teachers.title") as string}
           </h2>
         </div>
@@ -54,9 +57,9 @@ const Teachers = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="p-6 rounded-2xl bg-white border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 h-[450px] flex flex-col"
+                  className="p-6 rounded-2xl bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-primary shadow-lg hover:shadow-xl transition-all duration-300 h-[450px] flex flex-col"
                 >
-                  <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
+                  <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-dark-primary">
                     <img
                       src={`./teachers/teacher${index + 1}.jpg`}
                       alt={teacher.name}
@@ -67,16 +70,16 @@ const Teachers = () => {
                       }}
                     />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 text-center flex-shrink-0">
+                  <h3 className="text-xl font-semibold mb-2 text-center flex-shrink-0 text-gray-900 dark:text-dark-primary">
                     {teacher.name}
                   </h3>
-                  <p className="text-[#9b87f5] text-center mb-2 flex-shrink-0">
+                  <p className="text-theme-softBlue text-center mb-2 flex-shrink-0">
                     {teacher.position}
                   </p>
-                  <p className="text-gray-500 text-sm text-center mb-4 flex-shrink-0">
+                  <p className="text-gray-500 dark:text-dark-secondary text-sm text-center mb-4 flex-shrink-0">
                     {teacher.experience}
                   </p>
-                  <p className="text-gray-600 text-center flex-grow">
+                  <p className="text-gray-600 dark:text-dark-secondary text-center flex-grow">
                     {teacher.description}
                   </p>
                 </motion.div>
