@@ -103,23 +103,84 @@
 /* Swiper styles */
 .teachers-swiper {
   padding: 20px 0 50px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.teachers-swiper .swiper-wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+.teachers-swiper .swiper-slide {
+  height: auto;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .teachers-swiper {
+    padding: 20px 0 50px;
+    margin: 0 -20px;
+    width: calc(100% + 40px);
+  }
+
+  .teachers-swiper .swiper-slide {
+    opacity: 0.5;
+    transform: scale(0.9) translateX(0);
+  }
+
+  .teachers-swiper .swiper-slide-active {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+
+  .teachers-swiper .swiper-slide-prev {
+    opacity: 0.3;
+    transform: scale(0.9) translateX(-30%);
+  }
+
+  .teachers-swiper .swiper-slide-next {
+    opacity: 0.3;
+    transform: scale(0.9) translateX(30%);
+  }
 }
 
 .teachers-swiper .swiper-pagination-bullet {
   background: #9b87f5;
   opacity: 0.5;
+  transition: all 0.3s ease;
 }
 
 .teachers-swiper .swiper-pagination-bullet-active {
   opacity: 1;
+  transform: scale(1.2);
 }
 
 .teachers-swiper .swiper-button-next,
 .teachers-swiper .swiper-button-prev {
   color: #9b87f5;
+  transition: all 0.3s ease;
+}
+
+.teachers-swiper .swiper-button-next:hover,
+.teachers-swiper .swiper-button-prev:hover {
+  transform: scale(1.1);
 }
 
 .teachers-swiper .swiper-button-next:after,
 .teachers-swiper .swiper-button-prev:after {
   font-size: 24px;
+}
+
+@media (max-width: 640px) {
+  .teachers-swiper {
+    padding: 20px 0 40px;
+    margin: 0;
+    width: 100%;
+  }
+
+  .teachers-swiper .swiper-button-next,
+  .teachers-swiper .swiper-button-prev {
+    display: none;
+  }
 }
