@@ -12,9 +12,7 @@ const Index = () => {
         {" "}
         {/* Добавляем padding-top для компенсации фиксированной шапки */}
         <Hero />
-        <section id="services">
-          <Services />
-        </section>
+        <Services />
         <section id="teachers">
           <Teachers />
         </section>

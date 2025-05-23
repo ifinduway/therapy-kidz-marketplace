@@ -34,7 +34,7 @@ const Services = () => {
   ];
 
   return (
-    <section className="py-20 bg-white dark:bg-dark-primary">
+    <section id="services" className="py-20 bg-white dark:bg-dark-primary">
       <div className="container px-4 mx-auto">
         <div className="text-center max-w-4xl mx-auto mb-12">
           <span className="px-4 py-2 rounded-full bg-theme-softGreen text-sm font-medium inline-block mb-4">
