@@ -3,30 +3,24 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 import { MessageSquare } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Contact = () => {
+  const { t } = useTranslation();
+
   return (
-    <section className="py-20 bg-theme-softGray" id="contact">
+    <section className="py-20 bg-white" id="contact">
       <div className="container px-4 mx-auto">
+        <div className="text-center max-w-4xl mx-auto mb-12">
+          <span className="px-4 py-2 rounded-full bg-theme-softGreen text-sm font-medium inline-block mb-4">
+            {t("contact.badge")}
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            {t("contact.title")}
+          </h2>
+        </div>
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="px-4 py-2 rounded-full bg-white text-sm font-medium inline-block mb-4">
-              Связаться с нами
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Начните путь развития вашего ребёнка сегодня
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Мы готовы ответить на ваши вопросы и помочь принять лучшее решение
-              для развития вашего ребёнка.
-            </p>
-          </div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-white rounded-2xl p-8 shadow-lg"
-          >
+          <div className="bg-white rounded-2xl shadow-lg p-8">
             <div className="mb-12 flex justify-center items-center">
               <Button
                 className="w-full md:w-auto bg-[#0088cc] hover:bg-[#0077b5] text-white transition-all duration-300 rounded-full flex items-center justify-center gap-3 py-8 px-12 text-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
@@ -35,7 +29,7 @@ const Contact = () => {
                 }
               >
                 <MessageSquare className="w-6 h-6" />
-                Написать в Telegram
+                {t("contact.telegramButton")}
               </Button>
             </div>
 
@@ -45,7 +39,7 @@ const Contact = () => {
               </div>
               <div className="relative flex justify-center">
                 <span className="bg-white px-4 text-sm font-medium text-gray-500">
-                  ИЛИ
+                  {t("contact.or")}
                 </span>
               </div>
             </div>
@@ -54,31 +48,31 @@ const Contact = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Ваше имя
+                    {t("contact.form.name.label")}
                   </label>
                   <Input
                     type="text"
-                    placeholder="Иван Иванов"
+                    placeholder={t("contact.form.name.placeholder")}
                     className="w-full rounded-lg"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email адрес
+                    {t("contact.form.email.label")}
                   </label>
                   <Input
                     type="email"
-                    placeholder="ivan@example.com"
+                    placeholder={t("contact.form.email.placeholder")}
                     className="w-full rounded-lg"
                   />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Сообщение
+                  {t("contact.form.message.label")}
                 </label>
                 <Textarea
-                  placeholder="Расскажите о потребностях вашего ребёнка..."
+                  placeholder={t("contact.form.message.placeholder")}
                   className="w-full rounded-lg min-h-[150px]"
                 />
               </div>
@@ -86,10 +80,10 @@ const Contact = () => {
                 type="submit"
                 className="w-full bg-black hover:bg-gray-800 text-white transition-all duration-300 rounded-full"
               >
-                Отправить сообщение
+                {t("contact.form.submit")}
               </Button>
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
