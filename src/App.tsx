@@ -17,15 +17,29 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
-      <div className="min-h-screen bg-white dark:bg-dark-primary text-gray-900 dark:text-dark-primary transition-colors duration-300">
-        <Header />
-        <main>
-          <Hero />
-          <Services />
-          <Teachers />
-          <Contact />
-        </main>
-      </div>
+      <BrowserRouter basename="/therapy-kidz-marketplace-1">
+        <div className="min-h-screen bg-white dark:bg-dark-primary text-gray-900 dark:text-dark-primary transition-colors duration-300">
+          <Header />
+          <main>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Hero />
+                    <Services />
+                    <Teachers />
+                    <Contact />
+                  </>
+                }
+              />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Toaster />
+          <Sonner />
+        </div>
+      </BrowserRouter>
     </ThemeProvider>
   </QueryClientProvider>
 );
