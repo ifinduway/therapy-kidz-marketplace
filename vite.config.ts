@@ -27,7 +27,11 @@ export default defineConfig(({ mode }) => ({
         main: path.resolve(__dirname, "index.html"),
       },
       output: {
-        assetFileNames: "assets/[name]-[hash][extname]",
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name.split(".");
+          const ext = info[info.length - 1];
+          return `assets/[name]-[hash].${ext}`;
+        },
         chunkFileNames: "assets/[name]-[hash].js",
         entryFileNames: "assets/[name]-[hash].js",
       },
